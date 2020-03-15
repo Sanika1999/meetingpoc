@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/btnrecord"
+        android:layout_width="86dp"
+        android:layout_height="82dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:focusable="true"
+
+        android:onClick="Stop"
+        app:fab_colorNormal="@color/colorPrimary" />
+
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:textSize="60sp"
+        android:layout_alignBottom="@+id/recordProgressbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="64dp"
+
+
+        />
+    <ProgressBar
+        android:id="@+id/recordProgressbar"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/recordprogressbar"
+        android:background="@drawable/recordprogressbarbackground"
+        android:max="100"
+        android:progress="0"
+        android:layout_marginTop="27dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnpause"
+        android:text="Pause"
+        android:textAllCaps="true"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/recordingstatustext"
+        android:text="Record"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"/>
+
+
+
+</RelativeLayout>
