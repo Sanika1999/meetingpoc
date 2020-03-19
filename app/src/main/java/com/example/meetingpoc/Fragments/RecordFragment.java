@@ -1,6 +1,9 @@
 package com.example.meetingpoc.Fragments;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
@@ -15,19 +18,26 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.meetingpoc.R;
 import com.example.meetingpoc.Services.RecordingService;
 import com.melnykov.fab.FloatingActionButton;
+import com.nabinbhandari.android.permissions.PermissionHandler;
+import com.nabinbhandari.android.permissions.Permissions;
 
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static android.os.Build.VERSION_CODES.M;
 
 public class RecordFragment extends Fragment {
     @BindView(R.id.chronometer)
@@ -65,7 +75,8 @@ public class RecordFragment extends Fragment {
 
     @OnClick(R.id.btnrecord)
     public void recordaudio(){
-        onRecord(mStartRecording);
+        //onRecord(mStartRecording);
+        checkPermission(mStartRecording);
         mStartRecording=!mStartRecording;
 
     }
@@ -95,6 +106,47 @@ public class RecordFragment extends Fragment {
             Objects.requireNonNull(getActivity()).stopService(intent);
 
 
+        }
+    }
+
+    private void checkPermission(final boolean isStart) {
+        //Check permissions
+        if (Build.VERSION.SDK_INT >= M) {
+
+            final String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.RECORD_AUDIO};
+
+            int permissionAudioCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO);
+            int readStorageCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
+            int writeStorageCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            if (permissionAudioCheck == PERMISSION_GRANTED &&
+                    readStorageCheck == PERMISSION_GRANTED &&
+                    writeStorageCheck == PERMISSION_GRANTED)
+            {
+                onRecord(isStart);
+                return;
+            }
+
+            Permissions.check(getActivity(),
+                    permissions,
+                    null,
+                    null,
+                    new PermissionHandler() {
+                        @Override
+                        public void onGranted() {
+
+                            onRecord(isStart);
+                        }
+
+                        @Override
+                        public void onDenied(Context context, ArrayList<String> deniedPermissions) {
+                            // permission denied, block the feature.
+                            Toast.makeText(getActivity(), "Camera permission is required is use this feature", Toast.LENGTH_LONG).show();
+                        }
+                    });
+            return;
         }
     }
 }

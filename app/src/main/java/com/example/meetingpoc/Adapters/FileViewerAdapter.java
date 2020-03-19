@@ -12,21 +12,23 @@ import com.example.meetingpoc.Models.RecordingItem;
 
 import java.util.ArrayList;
 
-public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter , FileViewerAdapter.FileViewerViewHolder> {
-    public FileViewerAdapter(Context context, ArrayList<RecordingItem>arrayList, LinearLayoutManager)
+public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.FileViewerViewHolder> {
+
+    public FileViewerAdapter(Context context, ArrayList<RecordingItem> arrayList, LinearLayoutManager mm)
     {
 
     }
     @NonNull
     @Override
-    public FileViewerAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FileViewerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FileViewerAdapter holder, int position) {
+    public void onBindViewHolder(@NonNull FileViewerViewHolder holder, int position) {
 
     }
+
 
     @Override
     public int getItemCount() {

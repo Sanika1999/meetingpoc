@@ -14,7 +14,10 @@ public class DBhelper extends SQLiteOpenHelper {
     private Context context;
     public static final String DATABASE_NAME="savedrecordings.db";
     private static final int DATABASE_VERSION=1;
-    public static final String TABLE_NAME="saved recording table";
+
+
+    public static final String TABLE_NAME="recording_table";
+    public static final String TABLE_COLUMN_ID = "id";
     public static final String COLUMN_NAME="name";
     public static final String COLUMN_PATH="path";
     public static final String COLUMN_LENGTH="length";
@@ -31,11 +34,26 @@ public class DBhelper extends SQLiteOpenHelper {
     }
 
 
+    private static String createRecordingTableQuery() {
+        // Database creation SQL statement
+        String DATABASE_CREATE = "create table if not exists "
+                + TABLE_NAME
+                + "("
+                + TABLE_COLUMN_ID + " integer primary key autoincrement, "
+                + COLUMN_NAME + " text not null, "
+                + COLUMN_PATH + " text not null,"
+                + COLUMN_LENGTH + " integer,"
+                + COLUMN_TIMEADDED + " integer"
+                + ");";
+
+        return DATABASE_CREATE;
+    }
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQLITE_CREATE_TABLE);
+        //db.execSQL(SQLITE_CREATE_TABLE);
+        db.execSQL(createRecordingTableQuery());
 
     }
 

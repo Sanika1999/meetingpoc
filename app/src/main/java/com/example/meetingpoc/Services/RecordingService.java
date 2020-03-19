@@ -26,7 +26,7 @@ import butterknife.OnClick;
 
 public class RecordingService extends Service {
 
-    MediaRecorder mediaRecorder= new MediaRecorder();
+    MediaRecorder mediaRecorder;
     long mStartingtimemillis = 0;
     long mElapsedmillis = 0;
     File file;
@@ -63,7 +63,7 @@ public class RecordingService extends Service {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void Startrecording() {
-        MediaRecorder mediaRecorder= new MediaRecorder();
+        mediaRecorder= new MediaRecorder();
         Long tsmillis = System.currentTimeMillis() / 1000;
         String ts = tsmillis.toString();
         filename = "_audio" + ts;
@@ -91,11 +91,14 @@ public class RecordingService extends Service {
     }
    public void Stoprecording() {
 
-
         Log.i("stopping recording", "stop");
+        if(mediaRecorder == null){
+            return;
+        }
         mediaRecorder.stop();
+       mediaRecorder.release();
         mElapsedmillis = (System.currentTimeMillis()) - mStartingtimemillis;
-        mediaRecorder.reset();
+
 
         Toast.makeText(this, "recording saved " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
         //add to db
@@ -106,9 +109,7 @@ public class RecordingService extends Service {
 
     @Override
     public void onDestroy() {
+        Stoprecording();
         super.onDestroy();
-        if(mediaRecorder!=null){
-            Stoprecording();
-        }
     }
 }

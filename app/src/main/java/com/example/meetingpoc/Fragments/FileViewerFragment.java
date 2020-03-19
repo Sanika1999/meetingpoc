@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.meetingpoc.Adapters.FileViewerAdapter;
 import com.example.meetingpoc.Database.DBhelper;
 import com.example.meetingpoc.Models.RecordingItem;
 import com.example.meetingpoc.R;
